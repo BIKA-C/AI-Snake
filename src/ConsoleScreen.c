@@ -4,8 +4,8 @@
 //  2. Coloring
 //      - This "Screen" object treat each character spot as a pixel. Each pixel carries
 //        a 'char' or 'unicode char' data and their color info (both foreground and background)
-//  3. currently does not provide coloring API, you can take a look of the code if you are interested
-// 
+//      - Call SetPixelColor to set color
+//
 //  <HOW to USE>
 //  1. Screen YourScreenName = CreateTerminalScreen(heightOfScreen, widthOfScreen);
 //  2. Under your "Screen" object:
@@ -36,6 +36,21 @@ void Print(Screen this)
         WriteConsoleOutputCI(this->optbuf[this->bufIndex], this->data[i], this->width, coord);
 
     SetConsoleActiveScreenBuffer(this->optbuf[this->bufIndex]);
+}
+
+ScreenPixels CreateScreenPixels(int height, int width)
+{
+    ScreenPixels new = calloc(height, sizeof(CHAR_INFO*));
+    for (int c = 0; c < height; c++)
+        new[c] = calloc(width, sizeof(CHAR_INFO));
+    return new;
+}
+
+void freeScreenPixels(ScreenPixels this, int height)
+{
+    for (int i = 0; i < height; i++)
+        free(this[i]);
+    free(this);
 }
 
 Screen CreateTerminalScreen(int height, int width)
@@ -81,4 +96,9 @@ void CIcwcpy(CHAR_INFO* dest, char* source, int length)
 {
     for (int i = 0; i < length; i++)
         mbstowcs(&(dest[i].Char.UnicodeChar), &source[i], 1);
+}
+
+void SetPixelColor(Pixel* pixel, short color)
+{
+    pixel->Attributes = color;
 }

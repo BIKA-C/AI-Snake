@@ -4,7 +4,7 @@
 //  2. Coloring
 //      - This "Screen" object treat each character spot as a pixel. Each pixel carries
 //        a 'char' or 'unicode char' data and their color info (both foreground and background)
-//  3. currently does not provide coloring API, you can take a look of the code if you are interested
+//      - Call SetPixelColor to set color
 //
 //  <HOW to USE>
 //  1. Screen YourScreenName = CreateTerminalScreen(heightOfScreen, widthOfScreen);
@@ -36,15 +36,18 @@
 
 #define COLOR(foreground, background) (background << 4 | foreground)
 
+typedef CHAR_INFO Pixel;
+typedef Pixel**   ScreenPixels;
+
 // Screen object
 typedef struct ConsoleScreen* Screen;
 struct ConsoleScreen
 {
-    int         bufIndex;
-    HANDLE      optbuf[2];
-    CHAR_INFO** data;
-    int         height;
-    int         width;
+    int          bufIndex;
+    HANDLE       optbuf[2];
+    ScreenPixels data;
+    int          height;
+    int          width;
 
     void (*Print)(Screen);
 };
@@ -56,7 +59,15 @@ void freeScreen(Screen);
 // - CHAR_INFO* dest: YourScreenName.data[i]
 // - char* source: "your string"
 // - int length: the length of the string you want to copy
-void CIcwcpy(CHAR_INFO* dest, char* source, int length);
+void CIcwcpy(Pixel* dest, char* source, int length);
+
+// set color of a given pixel
+// use COLOR(YourForegroundColor, YourBackgroundColor) for color
+void SetPixelColor(Pixel* pixel, short color);
 
 // create the screen
 Screen CreateTerminalScreen(int height, int width);
+
+ScreenPixels CreateScreenPixels(int height, int width);
+
+void freeScreenPixels(ScreenPixels pixels, int height);
