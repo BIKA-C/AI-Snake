@@ -14,8 +14,6 @@ int main()
 
     DisplayStartMenu();
     Game        game = NewGame();
-    extern char KB_H[50];
-    extern int  KB_index;
 
     while (true)
     {
@@ -40,10 +38,6 @@ int main()
                     case 'r':
                     case 'R': Restart(&game); break;
                 }
-                KB_H[KB_index++] = c;
-                if (KB_index == 50)
-                    KB_index = 0;
-                // while ((_getch()) != EOF) {}
             }
         }
         CIcwcpy(game->screen->data[0], "   Died    R to Restart", 23);
