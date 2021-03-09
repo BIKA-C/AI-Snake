@@ -6,14 +6,14 @@
 #define BORDER -2
 #define EMPTY  0
 
-// #define ACTUAL_HEIGHT 22
-#define HEIGHT       22
-#define WIDTH        (HEIGHT * 2)
-#define ACTUAL_WIDTH HEIGHT
-
-#define GAME_HEIGHT (HEIGHT - 2)
+#define GAME_HEIGHT 30
 #define GAME_WIDTH  GAME_HEIGHT
 #define GAME_AREA   (GAME_HEIGHT * GAME_WIDTH)
+
+// #define ACTUAL_HEIGHT 22
+#define HEIGHT       (GAME_HEIGHT + 2)
+#define WIDTH        (HEIGHT * 2)
+#define ACTUAL_WIDTH HEIGHT
 
 #define MAP_WIDTH(x) (x * 2)
 
