@@ -24,6 +24,11 @@ By William Chen
 - Open your terminal in the program folder
 - Run `./Snake.exe`
 
+## AI
+
+Network's behaviour after 4 generations:
+![demos](https://image.alkaid.cloud/Github/Snake/AI-demo.gif)
+
 ## To Compile Yourself
 
 - Clone the project
