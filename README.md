@@ -27,6 +27,7 @@ By William Chen
 ## AI
 
 Network's behaviour after 4 generations:
+
 ![demos](https://image.alkaid.cloud/Github/Snake/AI-demo.gif)
 
 ## To Compile Yourself
