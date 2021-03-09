@@ -33,6 +33,7 @@ Game NewGame()
 
     // init game
     this->score    = 0;
+    this->history  = this->snake.head;
     this->clock[0] = GetTickCount64();
     this->clock[1] = this->clock[0] + this->snake.speed;
     this->clock[2] = 0;
@@ -138,12 +139,20 @@ COORD Search(Game game, COORD start, int label)
     return (COORD) {0, 0};
 }
 
+bool PointCompare(COORD p1, COORD p2)
+{
+    return (p1.X == p2.X && p1.Y == p2.Y);
+}
+
 // set the direction of the snake
 void Turn(Game this, Direction dir)
 {
     // if the new dir is same as the old or the opposite of the old, return
+    // if receive a input that is before the update, return
+    if (PointCompare(this->history, this->snake.head)) return;
     if (dir == this->snake.dir || dir == Opposite(this->snake.dir)) return;
     this->snake.dir = dir;
+    this->history   = this->snake.head;
 }
 
 // there are some weird random errors that I could not debug and fix

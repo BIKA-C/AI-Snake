@@ -55,6 +55,7 @@ struct GameCore
     int       score;
     short     map[HEIGHT][WIDTH];
     COORD     food;
+    COORD     history;
     ULONGLONG clock[3];
     void (*Update)(Game game);
 };

@@ -13,7 +13,9 @@ int main()
     srand((unsigned int)time(NULL));
 
     DisplayStartMenu();
-    Game game = NewGame();
+    Game        game = NewGame();
+    extern char KB_H[50];
+    extern int  KB_index;
 
     while (true)
     {
@@ -22,7 +24,8 @@ int main()
             game->Update(game);
             while (_kbhit())
             {
-                switch (_getch())
+                char c = _getch();
+                switch (c)
                 {
                     case 'W':
                     case 'w': game->snake.Turn(game, up); break;
@@ -37,6 +40,9 @@ int main()
                     case 'r':
                     case 'R': Restart(&game); break;
                 }
+                KB_H[KB_index++] = c;
+                if (KB_index == 50)
+                    KB_index = 0;
                 // while ((_getch()) != EOF) {}
             }
         }
