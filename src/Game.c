@@ -282,6 +282,7 @@ void Display(Game this)
 void freeGame(Game game)
 {
     freeScreen(game->screen);
+    free(game);
 }
 
 // display the menu

@@ -90,6 +90,7 @@ void freeScreen(Screen this)
     for (int i = 0; i < this->height; i++)
         free(this->data[i]);
     free(this->data);
+    free(this);
 }
 
 void CIcwcpy(CHAR_INFO* dest, char* source, int length)
